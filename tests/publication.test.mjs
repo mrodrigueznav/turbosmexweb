@@ -114,3 +114,20 @@ test('las reglas de redirección son 301 directas y no apuntan a otra URL legacy
     assert.notEqual(source, destination, `${source} crea un bucle`);
   }
 });
+
+test('la fase posterior al lanzamiento tiene un protocolo de contenido y medición', async () => {
+  const [contentReview, measurementPlan] = await Promise.all([
+    readFile('docs/seo/informational-content-review.md', 'utf8'),
+    readFile('docs/measurement/post-launch-checklist.md', 'utf8'),
+  ]);
+
+  for (const article of ['identificación de placas', 'reparación', 'turbo lag']) {
+    assert.match(contentReview, new RegExp(article, 'i'));
+  }
+  for (const event of ['whatsapp_click', 'phone_click', 'form_submit']) {
+    assert.match(measurementPlan, new RegExp(event));
+  }
+  for (const requirement of ['Search Console', '404', 'indexación', 'móvil']) {
+    assert.match(measurementPlan, new RegExp(requirement, 'i'));
+  }
+});
