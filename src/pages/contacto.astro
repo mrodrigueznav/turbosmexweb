@@ -20,7 +20,7 @@ import '../styles/global.css';
         if (!response.ok) throw new Error(data.message || 'No pudimos enviar la solicitud. Escríbenos por WhatsApp.');
         form.reset();
         status.textContent = data.message || 'Solicitud enviada correctamente.';
-        if (typeof window.gtag === 'function') window.gtag('event', 'form_submit', { page_location: window.location.href, page_title: document.title });
+        window.trackConversion?.('form_submit', { conversion_type: 'form_submission' });
       } catch (error) {
         status.textContent = error instanceof Error && error.message ? error.message : 'No pudimos enviar la solicitud. Escríbenos por WhatsApp.';
       }

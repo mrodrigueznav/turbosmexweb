@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
+    "test": "npm run build && node --test tests/publication.test.mjs",
     "preview": "astro preview",
     "php": "./scripts/php"
   },

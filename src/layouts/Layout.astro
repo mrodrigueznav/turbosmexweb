@@ -2,14 +2,27 @@
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = 'Turbos México | Venta y reparación de turbocompresores',
   description = 'Venta, reparación y refacciones para turbocompresores automotrices, diésel, agrícolas y de equipo pesado en México.',
+  image = '/assets/hero-reparacion.jpg',
 } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const socialImageUrl = new URL(image, canonicalUrl);
 const phone = '+524424760911';
 const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Turbos México, necesito información sobre un turbo.')}`;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Turbos México',
+  url: canonicalUrl.origin,
+  logo: new URL('/assets/logo-turbos-mexico.png', canonicalUrl).toString(),
+  telephone: '+52 442 476 0911',
+  email: 'ventas@turbosmexico.com.mx',
+};
 ---
 <!doctype html>
 <html lang="es-MX">
@@ -17,6 +30,21 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="Turbos México" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <slot name="head" />
     <link rel="icon" href="/assets/logo-turbos-mexico.png" />
     <title>{title}</title>
     <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }}>
@@ -33,6 +61,7 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="Turbos México, inicio">
         <img src="/assets/logo-turbos-mexico.png" alt="Turbos México" />
@@ -51,7 +80,7 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
       </nav>
       <a class="header-phone" href={`tel:${phone}`} data-track="phone_click" aria-label="Llamar a Turbos México al 442 476 0911">442 476 0911</a>
     </header>
-    <main><slot /></main>
+    <main id="main-content"><slot /></main>
     <footer class="site-footer">
       <div>
         <img src="/assets/logo-turbos-mexico.png" alt="Turbos México" />
@@ -81,6 +110,54 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
     </footer>
     <a class="whatsapp-float" href={whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" aria-label="Enviar mensaje a Turbos México por WhatsApp">WA</a>
     <script is:inline>
+      // Keep the tracking adapter available even when GA is not configured. This
+      // makes conversion links safe to use in preview and on installations that
+      // have not yet received a measurement ID.
+      const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
+      const storageGet = (key) => {
+        try { return window.sessionStorage.getItem(key); } catch { return null; }
+      };
+      const storageSet = (key, value) => {
+        try { window.sessionStorage.setItem(key, value); } catch { /* storage can be unavailable */ }
+      };
+      const campaign = () => {
+        const query = new URLSearchParams(window.location.search);
+        const values = {};
+        campaignKeys.forEach((key) => {
+          const value = query.get(key) || storageGet(`tm_${key}`);
+          if (value) {
+            values[key] = value;
+            storageSet(`tm_${key}`, value);
+          }
+        });
+        return values;
+      };
+      const sessionId = () => {
+        let id = storageGet('tm_session_id');
+        if (!id) {
+          id = `${Date.now()}${Math.floor(Math.random() * 100000)}`;
+          storageSet('tm_session_id', id);
+        }
+        return id;
+      };
+      const deviceType = () => window.matchMedia?.('(max-width: 767px)').matches
+        ? 'mobile'
+        : window.matchMedia?.('(max-width: 1023px)').matches ? 'tablet' : 'desktop';
+
+      window.trackConversion = (eventName, details = {}) => {
+        if (typeof window.gtag !== 'function') return;
+        const campaignValues = campaign();
+        window.gtag('event', eventName, {
+          ...details,
+          page_location: window.location.href,
+          page_path: window.location.pathname,
+          page_title: document.title,
+          device_type: deviceType(),
+          session_id: sessionId(),
+          ...campaignValues,
+        });
+      };
+
       const menuButton = document.querySelector('.menu-button');
       const navigation = document.querySelector('#site-navigation');
       const setMenu = (open) => {
@@ -94,14 +171,14 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
       navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
       document.querySelectorAll('[data-track]').forEach((element) => element.addEventListener('click', () => {
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', element.dataset.track, {
-            link_url: element.href,
-            ...(element.dataset.branch && { branch_location: element.dataset.branch }),
-            page_location: window.location.href,
-            page_title: document.title,
-          });
-        }
+        window.trackConversion(element.dataset.track, {
+          link_url: element.href,
+          ...(element.dataset.branch && { branch_location: element.dataset.branch }),
+          ...(element.dataset.track === 'whatsapp_click' && {
+            contact_intent: 'whatsapp',
+            measurement_description: 'Intención de contacto; no confirma una conversación, lead calificado ni venta',
+          }),
+        });
       }));
     </script>
   </body>

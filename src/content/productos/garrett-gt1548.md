@@ -12,6 +12,7 @@ condition: nuevo
 availability: Sujeto a confirmación con un asesor.
 quoteInstructions: Comparte el número de parte y fotografías de la placa antes de solicitar una cotización.
 published: true
+image: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj2V929agn-lXgv4yzGbjbOsYgSca9BGK-zbQ-W2XhBh9W2dW1rtsMez8DrhZ91UGfXpRvVJvk8Kj598tasKCpx3ivh99dP8NQbz08avVtJFnS8K6GhitvSWnjIfWELizmaAfYat5AQIZw/s1600/Garrett+GT15+Turbocharger+GT1548+picture+Largest+200+HP+Garrett+Turbo+Honeywell+450x432+www.TurbochargerSpecs.Blogspot.com.jpg
 ---
 
 ## Identificación del turbo
