@@ -2,7 +2,41 @@
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
-<Layout title="Ubicaciones y cobertura | Turbos México" description="Consulta la cobertura por envío de Turbos México y contacta al equipo para confirmar la atención de tu solicitud.">
-  <section class="page-hero"><span class="eyebrow">Atención en México</span><h1>Ubicaciones y cobertura</h1><p>Atendemos solicitudes por contacto y confirmamos el alcance de cada caso antes de prometer una atención local.</p></section>
-  <section class="section"><h2>Cobertura por envío</h2><p>Por ahora publicamos cobertura por envío, no un directorio de sucursales abiertas al público. No publicamos sucursales sin dirección, teléfono y horario, mapa y servicios confirmados.</p><p>La recepción desde otra ciudad y la forma de envío se revisan para cada solicitud. Contáctanos con tu ciudad y los datos del turbo para confirmar si podemos atenderte.</p><div class="actions"><a class="button button-primary" href="/contacto/">Consultar cobertura</a><a class="button button-dark" href="https://wa.me/524424760911" target="_blank" rel="noopener noreferrer" data-track="whatsapp_click">Hablar por WhatsApp</a></div></section>
+<Layout title="Sucursales y cobertura | Turbos México" description="Consulta las sucursales de Turbos México en Querétaro y Tlalnepantla, sus direcciones, mapas y cobertura por envío.">
+  <section class="page-hero"><span class="eyebrow">Atención en México</span><h1>Sucursales y cobertura</h1><p>Encuentra nuestras sucursales físicas en Querétaro y Tlalnepantla. Si estás en otra ciudad, también podemos revisar opciones de atención por envío.</p></section>
+
+  <section class="section" aria-labelledby="branches-title">
+    <div class="section-heading"><span class="eyebrow">Visítanos</span><h2 id="branches-title">Sucursales físicas</h2><p>Consulta la dirección y confirma la atención de tu solicitud antes de trasladarte.</p></div>
+    <div class="branch-directory">
+      <article class="branch-card" id="sucursal-queretaro">
+        <div class="branch-details">
+          <span class="eyebrow">Bajío</span>
+          <h3>Sucursal Querétaro</h3>
+          <address>Querétaro 11, Col. San Isidro Miranda<br />Querétaro, CP 76240</address>
+          <dl class="branch-contact">
+            <div><dt>Teléfonos</dt><dd><a href="tel:+524424760911" data-track="branch_phone_click" data-branch="queretaro">442 476 09 11</a><br /><a href="tel:+524427447720" data-track="branch_phone_click" data-branch="queretaro">442 744 77 20</a></dd></div>
+            <div><dt>Correo</dt><dd><a href="mailto:bajio@turbosmexico.com.mx" data-track="branch_email_click" data-branch="queretaro">bajio@turbosmexico.com.mx</a></dd></div>
+          </dl>
+          <div class="actions"><a class="button button-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Quer%C3%A9taro%2011%2C%20Col.%20San%20Isidro%20Miranda%2C%20Quer%C3%A9taro%2076240" target="_blank" rel="noopener noreferrer" data-track="branch_directions" data-branch="queretaro">Abrir indicaciones</a><a class="button button-dark" href="/contacto/">Contactar</a></div>
+        </div>
+        <div class="branch-map"><iframe title="Mapa de Sucursal Querétaro" src="https://www.google.com/maps?q=Quer%C3%A9taro%2011%2C%20Col.%20San%20Isidro%20Miranda%2C%20Quer%C3%A9taro%2076240&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><p>Si el mapa no carga, usa la dirección: Querétaro 11, Col. San Isidro Miranda, Querétaro, CP 76240.</p></div>
+      </article>
+
+      <article class="branch-card" id="sucursal-tlalnepantla">
+        <div class="branch-details">
+          <span class="eyebrow">Estado de México</span>
+          <h3>Sucursal Tlalnepantla</h3>
+          <address>Av. Santa Monica 40 Local C, El Mirador<br />54080 Tlalnepantla, Méx.</address>
+          <dl class="branch-contact">
+            <div><dt>Teléfono</dt><dd><a href="tel:+524424760911" data-track="branch_phone_click" data-branch="tlalnepantla">442 476 09 11</a></dd></div>
+            <div><dt>Correo</dt><dd><a href="mailto:ventas@turbosmexico.com.mx" data-track="branch_email_click" data-branch="tlalnepantla">ventas@turbosmexico.com.mx</a></dd></div>
+          </dl>
+          <div class="actions"><a class="button button-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Av.%20Santa%20Monica%2040%20Local%20C%2C%20El%20Mirador%2C%2054080%20Tlalnepantla%2C%20M%C3%A9x." target="_blank" rel="noopener noreferrer" data-track="branch_directions" data-branch="tlalnepantla">Abrir indicaciones</a><a class="button button-dark" href="/contacto/">Contactar</a></div>
+        </div>
+        <div class="branch-map"><iframe title="Mapa de Sucursal Tlalnepantla" src="https://www.google.com/maps?q=Av.%20Santa%20Monica%2040%20Local%20C%2C%20El%20Mirador%2C%2054080%20Tlalnepantla%2C%20M%C3%A9x.&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><p>Si el mapa no carga, usa la dirección: Av. Santa Monica 40 Local C, El Mirador, 54080 Tlalnepantla, Méx.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="shipping-title"><h2 id="shipping-title">Cobertura por envío</h2><p>Si estás en otra ciudad, revisamos la recepción y la forma de envío para cada solicitud. No publicamos otras sucursales sin dirección, teléfono y horario, mapa y servicios confirmados.</p><div class="actions"><a class="button button-primary" href="/contacto/">Consultar cobertura</a><a class="button button-dark" href="https://wa.me/524424760911" target="_blank" rel="noopener noreferrer" data-track="whatsapp_click">Hablar por WhatsApp</a></div></section>
 </Layout>

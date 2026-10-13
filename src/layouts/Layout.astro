@@ -67,6 +67,12 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
         <a href="/servicios/reparacion/">Reparación</a>
         <a href="/servicios/refacciones/">Refacciones</a>
       </div>
+      <div>
+        <strong>Redes sociales</strong>
+        <a href="https://www.facebook.com/turbosmexico/" target="_blank" rel="noopener noreferrer" data-track="social_facebook" aria-label="Turbos México en Facebook">Facebook</a>
+        <a href="https://www.instagram.com/turbos.mexico/" target="_blank" rel="noopener noreferrer" data-track="social_instagram" aria-label="Turbos México en Instagram">Instagram</a>
+        <a href="https://www.youtube.com/channel/UCtFUgAvBEVE8-OyeI-24qng/videos" target="_blank" rel="noopener noreferrer" data-track="social_youtube" aria-label="Turbos México en YouTube">YouTube</a>
+      </div>
       <p class="copyright">© {new Date().getFullYear()} Turbos México. Todos los derechos reservados.</p>
     </footer>
     <a class="whatsapp-float" href={whatsapp} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" aria-label="Enviar mensaje a Turbos México por WhatsApp">WA</a>
@@ -87,6 +93,7 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
         if (typeof window.gtag === 'function') {
           window.gtag('event', element.dataset.track, {
             link_url: element.href,
+            ...(element.dataset.branch && { branch_location: element.dataset.branch }),
             page_location: window.location.href,
             page_title: document.title,
           });

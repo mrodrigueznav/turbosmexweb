@@ -76,7 +76,7 @@ test('las páginas de servicio explican el proceso y solicitan datos verificable
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {
   const html = await readFile('dist/ubicaciones/index.html', 'utf8');
   assert.match(html, /Cobertura por envío/);
-  assert.match(html, /no publicamos sucursales/i);
+  assert.match(html, /no publicamos otras sucursales/i);
   assert.match(html, /dirección, teléfono y horario/);
   assert.match(html, /href="\/contacto\/"/);
 });
@@ -130,4 +130,38 @@ test('la fase posterior al lanzamiento tiene un protocolo de contenido y medici�
   for (const requirement of ['Search Console', '404', 'indexación', 'móvil']) {
     assert.match(measurementPlan, new RegExp(requirement, 'i'));
   }
+});
+
+
+test('ubicaciones publica sucursales físicas y redes sociales oficiales', async () => {
+  const html = await readFile('dist/ubicaciones/index.html', 'utf8');
+  for (const phrase of [
+    'Sucursal Querétaro',
+    'Querétaro 11',
+    'San Isidro Miranda',
+    'bajio@turbosmexico.com.mx',
+    'Sucursal Tlalnepantla',
+    'Av. Santa Monica 40 Local C',
+    'El Mirador',
+    'ventas@turbosmexico.com.mx',
+  ]) assert.match(html, new RegExp(phrase));
+
+  assert.match(html, /<iframe[^>]+title="Mapa de Sucursal Querétaro"/);
+  assert.match(html, /<iframe[^>]+title="Mapa de Sucursal Tlalnepantla"/);
+  assert.match(html, /data-track="branch_directions" data-branch="queretaro"/);
+  assert.match(html, /data-track="branch_directions" data-branch="tlalnepantla"/);
+  assert.match(html, /maps\/search\/?api=1&amp;query=Quer%C3%A9taro%2011%2C%20Col.%20San%20Isidro%20Miranda/);
+  assert.match(html, /maps\/search\/?api=1&amp;query=Av.%20Santa%20Monica%2040%20Local%20C/);
+  assert.match(html, /data-track="branch_phone_click" data-branch="queretaro"/);
+  assert.match(html, /data-track="branch_phone_click" data-branch="tlalnepantla"/);
+  assert.match(html, /branch_location: element\.dataset\.branch/);
+  assert.match(html, /data-track="social_facebook"/);
+  assert.match(html, /data-track="social_instagram"/);
+  assert.match(html, /data-track="social_youtube"/);
+  assert.match(html, /href="https:\/\/www\.facebook\.com\/turbosmexico\//);
+  assert.match(html, /href="https:\/\/www\.instagram\.com\/turbos\.mexico\//);
+  assert.match(html, /href="https:\/\/www\.youtube\.com\/channel\/UCtFUgAvBEVE8-OyeI-24qng\/videos"/);
+  assert.match(html, /target="_blank" rel="noopener noreferrer" data-track="social_facebook"/);
+  assert.match(html, /Cobertura por envío/);
+  assert.doesNotMatch(html, /LocalBusiness/);
 });

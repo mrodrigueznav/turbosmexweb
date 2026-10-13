@@ -32,6 +32,8 @@ o se deja pendiente de revisión editorial.
 | URL anterior | Decisión | Destino publicado |
 | --- | --- | --- |
 | `/contactanos/` | redirigir a página equivalente | `/contacto/` |
+| `/sucursal-queretaro/` | redirigir a la sucursal equivalente | `/ubicaciones/#sucursal-queretaro` |
+| `/sucursal-tlalnepantla/` | redirigir a la sucursal equivalente | `/ubicaciones/#sucursal-tlalnepantla` |
 | `/sucursal-guanajuato/` | retirar; confirmar primero si existe atención diferenciada | `N/A (sin redirección)` |
 | `/tipos-de-turbos/` | redirigir a catálogo/servicio equivalente | `/servicios/venta/` |
 | `/turbos-garrett/` | redirigir a catálogo/servicio equivalente; no implica inventario de marca | `/servicios/venta/` |
