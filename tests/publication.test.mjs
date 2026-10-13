@@ -162,6 +162,9 @@ test('ubicaciones publica sucursales físicas y redes sociales oficiales', async
   assert.match(html, /href="https:\/\/www\.instagram\.com\/turbos\.mexico\//);
   assert.match(html, /href="https:\/\/www\.youtube\.com\/channel\/UCtFUgAvBEVE8-OyeI-24qng\/videos"/);
   assert.match(html, /target="_blank" rel="noopener noreferrer" data-track="social_facebook"/);
+  for (const social of ['social_facebook', 'social_instagram', 'social_youtube']) {
+    assert.match(html, new RegExp(`data-track="${social}"[^>]*aria-label="[^"]+"[^>]*><svg`));
+  }
   assert.match(html, /Cobertura por envío/);
   assert.doesNotMatch(html, /LocalBusiness/);
 });
