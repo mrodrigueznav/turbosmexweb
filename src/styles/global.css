@@ -6,7 +6,7 @@ html { scroll-behavior: smooth; }
 body { margin:0; color:var(--ink); font-family:Inter,Arial,sans-serif; line-height:1.6; background:#fff; }
 a { color:inherit; }
 .site-header { min-height:82px; padding:0 clamp(1.25rem,5vw,5rem); display:flex; align-items:center; gap:2rem; background:#000; border-bottom:1px solid #262626; position:sticky; top:0; z-index:5; }
-.brand img { width:190px; height:auto; display:block; }
+.brand img { width:400px; max-width:100%; height:auto; display:block; }
 .site-header nav { display:flex; gap:1.6rem; margin-left:auto; font-weight:600; font-size:.9rem; }
 .site-header nav a { color:#fff; text-decoration:none; }
 .site-header nav a:hover,.site-header nav a:focus-visible { color:var(--green); }
