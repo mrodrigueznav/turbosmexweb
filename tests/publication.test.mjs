@@ -59,6 +59,28 @@ test('las conversiones mantienen identificadores diferenciados', async () => {
   assert.match(contact, /form_submit/);
 });
 
+test('las páginas de servicio explican el proceso y solicitan datos verificables', async () => {
+  const expectations = {
+    'servicios/venta/index.html': ['Qué necesitamos para cotizar', 'marca, modelo', 'número de parte'],
+    'servicios/reparacion/index.html': ['Cómo atendemos una reparación', 'síntomas', 'fotografías'],
+    'servicios/refacciones/index.html': ['Cómo identificamos una refacción', 'aplicación', 'número de parte'],
+  };
+
+  for (const [page, phrases] of Object.entries(expectations)) {
+    const html = await readFile(`dist/${page}`, 'utf8');
+    for (const phrase of phrases) assert.match(html, new RegExp(phrase));
+    assert.match(html, /Solicitar|Hablar por WhatsApp/);
+  }
+});
+
+test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {
+  const html = await readFile('dist/ubicaciones/index.html', 'utf8');
+  assert.match(html, /Cobertura por envío/);
+  assert.match(html, /no publicamos sucursales/i);
+  assert.match(html, /dirección, teléfono y horario/);
+  assert.match(html, /href="\/contacto\/"/);
+});
+
 test('el inventario SEO asigna una decisión y destino a cada URL observada', async () => {
   const inventory = await readFile('docs/seo/url-inventory.md', 'utf8');
   const rows = [...inventory.matchAll(/^\| `([^`]+)` \| ([^|]+) \| ([^|]+) \|/gm)];
