@@ -4,6 +4,8 @@ import { test } from 'node:test';
 
 const pages = [
   'index.html',
+  'catalogo/index.html',
+  'catalogo/garrett-gt1548/index.html',
   'contacto/index.html',
   'ubicaciones/index.html',
   'servicios/venta/index.html',
@@ -11,7 +13,7 @@ const pages = [
   'servicios/refacciones/index.html',
 ];
 
-const expectedRoutes = new Set(['/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
+const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
 const routeFromHref = (href) => {
   const path = href.split('#')[0];
   return path.endsWith('/') ? path : `${path}/`;
@@ -71,6 +73,22 @@ test('las páginas de servicio explican el proceso y solicitan datos verificable
     for (const phrase of phrases) assert.match(html, new RegExp(phrase));
     assert.match(html, /Solicitar|Hablar por WhatsApp/);
   }
+});
+
+test('el primer producto publicado tiene información técnica y una ruta de cotización', async () => {
+  const catalog = await readFile('dist/catalogo/index.html', 'utf8');
+  const product = await readFile('dist/catalogo/garrett-gt1548/index.html', 'utf8');
+
+  assert.match(catalog, /Catálogo de turbos/);
+  assert.match(catalog, /href=\"\/catalogo\/garrett-gt1548\/\"/);
+  assert.match(product, /Garrett GT1548/);
+  assert.match(product, /724930-5006S/);
+  assert.match(product, /Ford Transit 2\.4 TDCi/);
+  assert.match(product, /Sujeto a confirmación/);
+  assert.match(product, /href=\"\/contacto\/\"/);
+  assert.match(product, /Product/);
+  assert.match(product, /BreadcrumbList/);
+  assert.equal((product.match(/rel=\"canonical\"/g) || []).length, 1);
 });
 
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {

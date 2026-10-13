@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+const products = (await getCollection('productos', ({ data }) => data.published))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+<Layout title="Catálogo de turbos | Turbos México" description="Consulta turbocompresores publicados por Turbos México y solicita una cotización con los datos de tu aplicación.">
+  <section class="page-hero">
+    <span class="eyebrow">Consulta y cotización</span>
+    <h1>Catálogo de turbos</h1>
+    <p>Conoce los modelos publicados y solicita orientación técnica. La compatibilidad, disponibilidad y precio se confirman antes de cotizar.</p>
+  </section>
+  <section class="section">
+    <div class="section-heading">
+      <h2>Productos publicados</h2>
+      <p>Empezamos con productos seleccionados y verificables para evitar promesas de inventario o compatibilidad no confirmadas.</p>
+    </div>
+    <div class="grid product-grid">
+      {products.map((product) => (
+        <article class="card product-card">
+          <span class="eyebrow">{product.data.brand}</span>
+          <h3>{product.data.name}</h3>
+          <p>{product.data.description}</p>
+          <p><strong>Número de parte:</strong> {product.data.partNumbers.join(', ')}</p>
+          <a href={`/catalogo/${product.data.slug}/`}>Ver información del turbo →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
