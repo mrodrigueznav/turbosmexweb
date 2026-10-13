@@ -1,0 +1,5 @@
+# Legacy URL migration rules. Install this file on the Apache vhost serving
+# the old domain before changing DNS. Destinations are final canonical routes.
+Redirect 301 /contactanos/ /contacto/
+Redirect 301 /tipos-de-turbos/ /servicios/venta/
+Redirect 301 /turbos-garrett/ /servicios/venta/
