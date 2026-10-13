@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+php_bin="$root_dir/.tools/php/runtime/usr/bin/php8.3"
+extension_dir="$root_dir/.tools/php/runtime/usr/lib/php/20230831"
+
+if [[ ! -x "$php_bin" ]]; then
+  echo "PHP local no está instalado. Consulta la configuración del proyecto." >&2
+  exit 1
+fi
+
+exec "$php_bin" -n \
+  -d "extension=$extension_dir/pdo.so" \
+  -d "extension=$extension_dir/sqlite3.so" \
+  -d "extension=$extension_dir/pdo_sqlite.so" \
+  "$@"
