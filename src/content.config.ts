@@ -5,6 +5,7 @@ const productos = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/productos' }),
   schema: z.object({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    example: z.boolean().default(false),
     name: z.string().min(1),
     brand: z.string().min(1),
     partNumbers: z.array(z.string().min(1)).min(1),

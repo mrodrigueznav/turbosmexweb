@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 
@@ -10,6 +10,7 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props;
 const { data } = product;
+const { Content } = await render(product);
 const canonicalPath = `/catalogo/${data.slug}/`;
 const productSchema = {
   '@context': 'https://schema.org',
@@ -36,12 +37,14 @@ const breadcrumbSchema = {
   <section class="page-hero">
     <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> / <a href="/catalogo/">Catálogo</a> / <span>{data.name}</span></nav>
     <span class="eyebrow">{data.brand} · {data.productType}</span>
+    {data.example && <p class="example-label">Producto de ejemplo</p>}
     <h1>{data.name}</h1>
     <p>{data.description}</p>
   </section>
   <section class="section product-detail">
     <div>
       <h2>Información confirmada</h2>
+      <div class="product-description"><Content /></div>
       <dl class="product-facts">
         <div><dt>Número de parte</dt><dd>{data.partNumbers.join(', ')}</dd></div>
         <div><dt>Aplicación</dt><dd>{data.applications.join(', ')}</dd></div>

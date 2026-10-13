@@ -22,6 +22,7 @@ const products = (await getCollection('productos', ({ data }) => data.published)
       {products.map((product) => (
         <article class="card product-card">
           <span class="eyebrow">{product.data.brand}</span>
+          {product.data.example && <span class="example-label">Ejemplo</span>}
           <h3>{product.data.name}</h3>
           <p>{product.data.description}</p>
           <p><strong>Número de parte:</strong> {product.data.partNumbers.join(', ')}</p>
