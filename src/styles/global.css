@@ -62,6 +62,8 @@ h1,h2,h3 { line-height:1.05; }
 .site-footer a:hover { color:var(--green); }
 .copyright { grid-column:1/-1; border-top:1px solid #303b3f; padding-top:1.5rem; margin:0; color:#b8c2c4; font-size:.85rem; }
 .whatsapp-float { position:fixed; right:1.25rem; bottom:1.25rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:50%; background:var(--green); color:#000; font-weight:800; text-decoration:none; box-shadow:0 3px 12px #0005; z-index:4; }
+.whatsapp-float:focus-visible { outline:3px solid #fff; outline-offset:3px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
 @media (max-width:760px) {
   .site-header { flex-wrap:wrap; gap:1rem; padding-block:.8rem; }
   .brand { margin-right:auto; }

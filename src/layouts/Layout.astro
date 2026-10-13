@@ -41,7 +41,9 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
         <span aria-hidden="true">☰</span>
       </button>
       <nav id="site-navigation" aria-label="Navegación principal">
-        <a href="/#servicios">Servicios</a>
+        <a href="/servicios/venta/">Venta</a>
+        <a href="/servicios/reparacion/">Reparación</a>
+        <a href="/servicios/refacciones/">Refacciones</a>
         <a href="/#aplicaciones">Aplicaciones</a>
         <a href="/ubicaciones/">Ubicaciones</a>
         <a href="/contacto/">Contacto</a>
@@ -77,6 +79,7 @@ const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Tur
         menuButton?.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
         if (!open) menuButton?.focus();
       };
+      setMenu(false);
       menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
       navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
