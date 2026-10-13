@@ -5,6 +5,8 @@
 html { scroll-behavior: smooth; }
 body { margin:0; color:var(--ink); font-family:Inter,Arial,sans-serif; line-height:1.6; background:#fff; }
 a { color:inherit; }
+.skip-link { position:absolute; left:1rem; top:-4rem; z-index:10; padding:.7rem 1rem; background:var(--green); color:#000; font-weight:700; }
+.skip-link:focus { top:1rem; }
 .site-header { min-height:82px; padding:0 clamp(1.25rem,5vw,5rem); display:flex; align-items:center; gap:2rem; background:#000; border-bottom:1px solid #262626; position:sticky; top:0; z-index:5; }
 .brand img { width:400px; max-width:100%; height:auto; display:block; }
 .site-header nav { display:flex; gap:1.6rem; margin-left:auto; font-weight:600; font-size:.9rem; }
@@ -34,6 +36,7 @@ h1,h2,h3 { line-height:1.05; }
 .card { padding:1.75rem; border:1px solid var(--line); border-top:4px solid var(--green-dark); }
 .card h3 { font-size:1.5rem; margin-top:0; }
 .card a { color:var(--green-dark); font-weight:700; text-decoration:none; }
+.example-label { display:inline-block; padding:.2rem .5rem; background:#fff3cd; color:#664d03; font-size:.78rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
 .band { background:var(--navy); color:#fff; }
 .band .section { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .band h2 { margin-bottom:.25rem; }
@@ -41,6 +44,27 @@ h1,h2,h3 { line-height:1.05; }
 .application-list li { background:var(--cream); padding:1.25rem; font-weight:700; }
 .page-hero { background:var(--cream); padding:5rem max(5%,calc((100% - 1120px)/2)); }
 .page-hero p { max-width:650px; font-size:1.1rem; }
+.product-hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,420px); align-items:center; gap:4rem; }
+.product-hero-content { min-width:0; }
+.product-hero h1 { max-width:760px; }
+.breadcrumbs { margin-bottom:2rem; color:var(--muted); font-size:.9rem; }
+.breadcrumbs a { color:var(--green-dark); font-weight:700; }
+.product-image { margin:0; padding:1rem; background:var(--navy); border-radius:8px; box-shadow:0 1rem 2.5rem #07192325; }
+.product-image img { display:block; width:100%; height:auto; aspect-ratio:1.45; object-fit:contain; border-radius:4px; }
+.product-image figcaption { margin:.75rem .25rem 0; color:#dce7e9; font-size:.78rem; }
+.product-detail { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:4rem; align-items:start; }
+.product-detail h2 { margin-top:.4rem; }
+.product-description { max-width:700px; color:var(--muted); }
+.product-description h2 { font:inherit; font-weight:700; color:var(--ink); }
+.product-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; margin:2rem 0 0; background:var(--line); border:1px solid var(--line); }
+.product-facts div { padding:1.25rem; background:#fff; }
+.product-facts dt { color:var(--muted); font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+.product-facts dd { margin:.35rem 0 0; font-weight:600; }
+.product-quote { padding:2rem; background:var(--navy); color:#fff; border-top:5px solid var(--green); box-shadow:0 1rem 2.5rem #07192320; }
+.product-quote .eyebrow { color:var(--green); }
+.product-quote h2 { margin-top:.5rem; }
+.product-quote p { color:#dce7e9; }
+.product-quote .button { margin:.5rem .5rem .5rem 0; }
 .locations { grid-template-columns:repeat(4,1fr); }
 .location { padding:1.5rem; border-left:4px solid var(--green); background:var(--cream); }
 .location strong,.location span { display:block; }
@@ -93,7 +117,10 @@ h1,h2,h3 { line-height:1.05; }
   .site-header nav a { padding:.65rem 0; border-top:1px solid #303b3f; }
   .hero { min-height:560px; }
   .hero-content { padding:4rem 0; }
-  .grid,.locations,.contact-grid,.branch-card { grid-template-columns:1fr; }
+  .grid,.locations,.contact-grid,.branch-card,.product-hero,.product-detail { grid-template-columns:1fr; }
+  .product-hero { gap:2rem; }
+  .product-detail { gap:2rem; }
+  .product-facts { grid-template-columns:1fr; }
   .application-list { grid-template-columns:repeat(2,1fr); }
   .band .section { display:block; }
   .band .button { margin-top:1rem; }

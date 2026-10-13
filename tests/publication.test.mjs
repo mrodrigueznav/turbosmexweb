@@ -6,6 +6,7 @@ const pages = [
   'index.html',
   'catalogo/index.html',
   'catalogo/garrett-gt1548/index.html',
+  'catalogo/turbo-ejemplo/index.html',
   'contacto/index.html',
   'ubicaciones/index.html',
   'servicios/venta/index.html',
@@ -13,7 +14,7 @@ const pages = [
   'servicios/refacciones/index.html',
 ];
 
-const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
+const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/garrett-gt1548/', '/catalogo/turbo-ejemplo/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
 const routeFromHref = (href) => {
   const path = href.split('#')[0];
   return path.endsWith('/') ? path : `${path}/`;
@@ -25,9 +26,33 @@ test('todas las páginas públicas tienen estructura y metadatos básicos', asyn
     assert.match(html, /<html lang="es-MX">/);
     assert.match(html, /<title>[^<]+<\/title>/);
     assert.match(html, /<meta name="description" content="[^"]+"/);
+    assert.match(html, /<link rel="canonical" href="https:\/\/turbosmexico\.com\.mx\//);
+    assert.match(html, /<meta property="og:title" content="[^"]+"/);
+    assert.match(html, /<meta property="og:description" content="[^"]+"/);
+    assert.match(html, /<meta property="og:url" content="https:\/\/turbosmexico\.com\.mx\//);
+    assert.match(html, /<meta property="og:image" content="https?:\/\/[^" ]+"/);
+    assert.match(html, /<meta name="twitter:card" content="summary_large_image"/);
+    assert.match(html, /application\/ld\+json/);
     assert.match(html, /<main id="main-content">/);
     assert.match(html, /<h1[\s>]/);
   }
+});
+
+test('cada página publica una canonical única y el sitemap solo contiene rutas públicas', async () => {
+  const sitemap = await readFile('dist/sitemap-0.xml', 'utf8');
+  const sitemapRoutes = [...sitemap.matchAll(/<loc>https:\/\/turbosmexico\.com\.mx([^<]+)<\/loc>/g)].map(([, path]) => path);
+  assert.deepEqual(new Set(sitemapRoutes), expectedRoutes);
+
+  for (const page of pages) {
+    const html = await readFile(`dist/${page}`, 'utf8');
+    assert.equal((html.match(/rel="canonical"/g) || []).length, 1, `${page} debe tener una sola canonical`);
+  }
+});
+
+test('robots permite el rastreo y declara el sitemap canónico', async () => {
+  const robots = await readFile('dist/robots.txt', 'utf8');
+  assert.match(robots, /^User-agent: \*\nAllow: \/\n/m);
+  assert.match(robots, /Sitemap: https:\/\/turbosmexico\.com\.mx\/sitemap-index\.xml/);
 });
 
 test('los enlaces internos publicados apuntan a rutas existentes', async () => {
@@ -80,15 +105,24 @@ test('el primer producto publicado tiene información técnica y una ruta de cot
   const product = await readFile('dist/catalogo/garrett-gt1548/index.html', 'utf8');
 
   assert.match(catalog, /Catálogo de turbos/);
-  assert.match(catalog, /href=\"\/catalogo\/garrett-gt1548\/\"/);
+  assert.match(catalog, /href="\/catalogo\/garrett-gt1548\/"/);
   assert.match(product, /Garrett GT1548/);
   assert.match(product, /724930-5006S/);
   assert.match(product, /Ford Transit 2\.4 TDCi/);
   assert.match(product, /Sujeto a confirmación/);
-  assert.match(product, /href=\"\/contacto\/\"/);
+  assert.match(product, /href="\/contacto\/"/);
   assert.match(product, /Product/);
   assert.match(product, /BreadcrumbList/);
-  assert.equal((product.match(/rel=\"canonical\"/g) || []).length, 1);
+  assert.equal((product.match(/rel="canonical"/g) || []).length, 1);
+});
+
+test('el catálogo identifica claramente el producto de ejemplo', async () => {
+  const catalog = await readFile('dist/catalogo/index.html', 'utf8');
+  const example = await readFile('dist/catalogo/turbo-ejemplo/index.html', 'utf8');
+
+  assert.match(catalog, /href="\/catalogo\/turbo-ejemplo\/"/);
+  assert.match(example, /Producto de ejemplo/);
+  assert.match(example, /no representa una pieza, compatibilidad, precio o disponibilidad real/i);
 });
 
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {
@@ -150,7 +184,6 @@ test('la fase posterior al lanzamiento tiene un protocolo de contenido y medici�
   }
 });
 
-
 test('ubicaciones publica sucursales físicas y redes sociales oficiales', async () => {
   const html = await readFile('dist/ubicaciones/index.html', 'utf8');
   for (const phrase of [
@@ -168,8 +201,8 @@ test('ubicaciones publica sucursales físicas y redes sociales oficiales', async
   assert.match(html, /<iframe[^>]+title="Mapa de Sucursal Tlalnepantla"/);
   assert.match(html, /data-track="branch_directions" data-branch="queretaro"/);
   assert.match(html, /data-track="branch_directions" data-branch="tlalnepantla"/);
-  assert.match(html, /maps\/search\/?api=1&amp;query=Quer%C3%A9taro%2011%2C%20Col.%20San%20Isidro%20Miranda/);
-  assert.match(html, /maps\/search\/?api=1&amp;query=Av.%20Santa%20Monica%2040%20Local%20C/);
+  assert.match(html, /maps\/search\/\?api=1&amp;query=Quer%C3%A9taro%2011%2C%20Col.%20San%20Isidro%20Miranda/);
+  assert.match(html, /maps\/search\/\?api=1&amp;query=Av.%20Santa%20Monica%2040%20Local%20C/);
   assert.match(html, /data-track="branch_phone_click" data-branch="queretaro"/);
   assert.match(html, /data-track="branch_phone_click" data-branch="tlalnepantla"/);
   assert.match(html, /branch_location: element\.dataset\.branch/);

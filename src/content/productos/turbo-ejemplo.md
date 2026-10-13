@@ -13,6 +13,7 @@ condition: nuevo
 availability: Solo demostración; no representa inventario disponible.
 quoteInstructions: Sustituye estos datos por información confirmada antes de publicar un producto real.
 published: true
+image: /assets/turbo-catalogo.svg
 ---
 
 ## Registro de demostración
