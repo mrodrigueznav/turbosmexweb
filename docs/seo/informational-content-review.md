@@ -29,5 +29,6 @@ entrantes antes de conservarlas o retirarlas:
    decisión del inventario. No redirigir automáticamente a inicio.
 
 Los equipos, marcas, garantías, síntomas y procesos solo se redactan después de
-confirmarlos con el negocio. Hasta completar esta revisión, no existen artículos
-indexables en el sitemap nuevo.
+confirmarlos con el negocio. Los clics observados se reportan como intención de
+contacto; no se infieren ventas ni conversaciones confirmadas. Hasta completar
+esta revisión, no existen artículos indexables en el sitemap nuevo.

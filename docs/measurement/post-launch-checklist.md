@@ -17,8 +17,9 @@ acceso a herramientas privadas. No contiene métricas inventadas.
   `PUBLIC_GA_ID` en el entorno de construcción. Sin esa variable el sitio no
   carga el script de Analytics.
 - [ ] Verificar en tiempo real los eventos `whatsapp_click`, `phone_click` y
-  `form_submit`. Son conversiones verificables; un clic de WhatsApp no confirma
-  una conversación, un lead calificado ni una venta.
+  `form_submit`. Son eventos observables del sitio; el clic de WhatsApp se
+  reporta como intención de contacto y no como una conversación confirmada,
+  lead calificado o venta.
 - [ ] Mantener el mismo periodo, zona horaria y filtros al comparar el dominio
   anterior con el nuevo.
 
