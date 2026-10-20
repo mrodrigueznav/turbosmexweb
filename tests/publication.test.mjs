@@ -5,6 +5,8 @@ import { test } from 'node:test';
 const pages = [
   'index.html',
   'catalogo/index.html',
+  'catalogo/marca/garrett/index.html',
+  'catalogo/aplicaciones/ford-transit-2-4-tdci/index.html',
   'catalogo/garrett-gt1548/index.html',
   'contacto/index.html',
   'ubicaciones/index.html',
@@ -13,7 +15,7 @@ const pages = [
   'servicios/refacciones/index.html',
 ];
 
-const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
+const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/marca/garrett/', '/catalogo/aplicaciones/ford-transit-2-4-tdci/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
 const routeFromHref = (href) => {
   const path = href.split('#')[0];
   return path.endsWith('/') ? path : `${path}/`;
@@ -112,7 +114,21 @@ test('el primer producto publicado tiene información técnica y una ruta de cot
   assert.match(product, /href="\/contacto\/"/);
   assert.match(product, /Product/);
   assert.match(product, /BreadcrumbList/);
+  assert.match(product, /href="\/servicios\/venta\/"/);
+  assert.match(product, /href="\/servicios\/refacciones\/"/);
   assert.equal((product.match(/rel="canonical"/g) || []).length, 1);
+});
+
+test('las categorías publicadas tienen contenido propio y enlazan al producto', async () => {
+  const brand = await readFile('dist/catalogo/marca/garrett/index.html', 'utf8');
+  const application = await readFile('dist/catalogo/aplicaciones/ford-transit-2-4-tdci/index.html', 'utf8');
+
+  assert.match(brand, /Categoría por marca/);
+  assert.match(brand, /Turbos Garrett/);
+  assert.match(brand, /href="\/catalogo\/garrett-gt1548\/"/);
+  assert.match(application, /Categoría por aplicación/);
+  assert.match(application, /Turbos para Ford Transit 2\.4 TDCi/);
+  assert.match(application, /href="\/catalogo\/garrett-gt1548\/"/);
 });
 
 test('los productos no publicados no aparecen en páginas públicas', async () => {

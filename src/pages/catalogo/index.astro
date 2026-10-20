@@ -5,6 +5,9 @@ import '../../styles/global.css';
 
 const products = (await getCollection('productos', ({ data }) => data.published))
   .sort((a, b) => a.data.name.localeCompare(b.data.name));
+const brands = [...new Map(products.map((product) => [product.data.brand, product])).values()];
+const applications = [...new Set(products.flatMap((product) => product.data.applications))];
+const toSlug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 ---
 
 <Layout title="Catálogo de turbos | Turbos México" description="Consulta turbocompresores publicados por Turbos México y solicita una cotización con los datos de tu aplicación.">
@@ -28,6 +31,26 @@ const products = (await getCollection('productos', ({ data }) => data.published)
           <p><strong>Número de parte:</strong> {product.data.partNumbers.join(', ')}</p>
           <a href={`/catalogo/${product.data.slug}/`}>Ver información del turbo →</a>
         </article>
+      ))}
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-heading">
+      <h2>Explora por marca o aplicación</h2>
+      <p>Estas categorías muestran únicamente grupos con productos publicados y contenido editorial propio.</p>
+    </div>
+    <div class="grid">
+      {brands.map((product) => (
+        <a class="card" href={`/catalogo/marca/${toSlug(product.data.brand)}/`}>
+          <h3>Turbos {product.data.brand}</h3>
+          <p>Modelos publicados de esta marca.</p>
+        </a>
+      ))}
+      {applications.map((application) => (
+        <a class="card" href={`/catalogo/aplicaciones/${toSlug(application)}/`}>
+          <h3>{application}</h3>
+          <p>Productos publicados para esta aplicación.</p>
+        </a>
       ))}
     </div>
   </section>

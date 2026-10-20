@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/global.css';
+
+export async function getStaticPaths() {
+  const toSlug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const products = await getCollection('productos', ({ data }) => data.published);
+  const groups = new Map();
+  for (const product of products) {
+    for (const application of product.data.applications) {
+      const slug = toSlug(application);
+      const group = groups.get(slug) ?? { name: application, products: [] };
+      group.products.push(product);
+      groups.set(slug, group);
+    }
+  }
+  return [...groups].map(([slug, group]) => ({ params: { slug }, props: group }));
+}
+
+const { name, products: categoryProducts } = Astro.props;
+---
+
+<Layout title={`Turbos para ${name} | Catálogo | Turbos México`} description={`Consulta turbos publicados para ${name} y solicita orientación técnica.`}>
+  <section class="page-hero">
+    <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> / <a href="/catalogo/">Catálogo</a> / <span>{name}</span></nav>
+    <span class="eyebrow">Categoría por aplicación</span>
+    <h1>Turbos para {name}</h1>
+    <p>Productos con esta aplicación editorial publicada. Confirma la pieza con la placa, el número de parte y los datos del vehículo.</p>
+  </section>
+  <section class="section">
+    <h2>Productos relacionados</h2>
+    <div class="grid product-grid">
+      {categoryProducts.map((product) => (
+        <article class="card product-card">
+          <span class="eyebrow">{product.data.brand}</span>
+          <h3>{product.data.name}</h3>
+          <p>{product.data.description}</p>
+          <a href={`/catalogo/${product.data.slug}/`}>Ver información del turbo →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
