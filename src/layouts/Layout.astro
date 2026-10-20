@@ -176,6 +176,16 @@ const structuredData = {
       menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
       navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
+      const floatingWhatsapp = document.querySelector('.whatsapp-float');
+      const whatsappActions = [...document.querySelectorAll('[data-track="whatsapp_click"]')].filter((element) => element !== floatingWhatsapp);
+      if (floatingWhatsapp && whatsappActions.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          const actionVisible = entries.some((entry) => entry.isIntersecting);
+          floatingWhatsapp.classList.toggle('is-hidden', actionVisible);
+        }, { threshold: .15 });
+        whatsappActions.forEach((action) => observer.observe(action));
+      }
+
       document.querySelectorAll('[data-track]').forEach((element) => element.addEventListener('click', () => {
         window.trackConversion(element.dataset.track, {
           link_url: element.href,

@@ -8,6 +8,7 @@ const products = (await getCollection('productos', ({ data }) => data.published)
 const brands = [...new Map(products.map((product) => [product.data.brand, product])).values()];
 const applications = [...new Set(products.flatMap((product) => product.data.applications))];
 const toSlug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const whatsappUrl = 'https://wa.me/524424760911?text=Hola%20Turbos%20M%C3%A9xico%2C%20necesito%20orientaci%C3%B3n%20sobre%20un%20turbo.';
 ---
 
 <Layout title="Catálogo de turbos | Turbos México" description="Consulta turbocompresores de Turbos México y solicita una cotización con los datos de tu aplicación.">
@@ -15,6 +16,7 @@ const toSlug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replac
     <span class="eyebrow">Consulta y cotización</span>
     <h1>Catálogo de turbos</h1>
     <p>Explora nuestros modelos y solicita orientación técnica. La compatibilidad, disponibilidad y precio se revisan para tu vehículo antes de cotizar.</p>
+    <div class="actions"><a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click">Consultar por WhatsApp</a></div>
   </section>
   <section class="section">
     <div class="section-heading">

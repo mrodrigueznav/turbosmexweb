@@ -19,6 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { name, products: categoryProducts } = Astro.props;
+const whatsappUrl = `https://wa.me/524424760911?text=${encodeURIComponent(`Hola Turbos México, necesito orientación sobre un turbo para ${name}.` )}`;
 ---
 
 <Layout title={`Turbos para ${name} | Catálogo | Turbos México`} description={`Consulta turbos para ${name} y solicita orientación técnica.`}>
@@ -27,6 +28,7 @@ const { name, products: categoryProducts } = Astro.props;
     <span class="eyebrow">Modelos por aplicación</span>
     <h1>Turbos para {name}</h1>
     <p>Consulta opciones para {name}. Compara la placa, el número de parte y los datos de tu vehículo antes de cotizar.</p>
+    <div class="actions"><a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click">Consultar por WhatsApp</a></div>
   </section>
   <section class="section">
     <h2>Productos relacionados</h2>
