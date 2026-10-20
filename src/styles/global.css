@@ -124,6 +124,7 @@ h1,h2,h3 { line-height:1.05; }
   .page-hero h1,.section h2 { font-size:clamp(2.25rem,11vw,3.5rem); }
   .actions { gap:.75rem; }
   .actions .button { width:100%; }
+  .actions .button[data-track="whatsapp_click"],.product-quote .button[data-track="whatsapp_click"] { padding-right:4.5rem; }
   .grid,.locations,.contact-grid,.branch-card,.product-hero,.product-detail { grid-template-columns:1fr; }
   .product-hero { gap:2rem; }
   .product-detail { gap:2rem; }
