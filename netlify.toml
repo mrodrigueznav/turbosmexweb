@@ -1,0 +1,28 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/contactanos/"
+  to = "/contacto/"
+  status = 301
+
+[[redirects]]
+  from = "/sucursal-queretaro/"
+  to = "/ubicaciones/#sucursal-queretaro"
+  status = 301
+
+[[redirects]]
+  from = "/sucursal-tlalnepantla/"
+  to = "/ubicaciones/#sucursal-tlalnepantla"
+  status = 301
+
+[[redirects]]
+  from = "/tipos-de-turbos/"
+  to = "/servicios/venta/"
+  status = 301
+
+[[redirects]]
+  from = "/turbos-garrett/"
+  to = "/servicios/venta/"
+  status = 301

@@ -56,6 +56,13 @@ test('robots permite el rastreo y declara el sitemap canónico', async () => {
   assert.match(robots, /Sitemap: https:\/\/turbosmexico\.com\.mx\/sitemap-index\.xml/);
 });
 
+test('las páginas indexables tienen señales sociales y de indexación coherentes', async () => {
+  const product = await readFile('dist/catalogo/garrett-gt1548/index.html', 'utf8');
+  assert.match(product, /<meta name="robots" content="index, follow"/);
+  assert.match(product, /<meta property="og:type" content="product"/);
+  assert.match(product, /<meta property="og:image:alt" content="Turbocompresor Garrett GT1548"/);
+});
+
 test('los enlaces internos publicados apuntan a rutas existentes', async () => {
   for (const page of pages) {
     const html = await readFile(`dist/${page}`, 'utf8');

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://turbosmexico.com.mx/sitemap-index.xml
