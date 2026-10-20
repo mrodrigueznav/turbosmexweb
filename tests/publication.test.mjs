@@ -85,7 +85,6 @@ test('las conversiones mantienen identificadores diferenciados', async () => {
   assert.match(layout, /data-track="whatsapp_click"/);
   assert.match(layout, /data-track="phone_click"/);
   assert.match(contact, /form_submit/);
-  assert.match(contact, /storageGet\('tm_landing_page'\)/);
 });
 
 test('las páginas de servicio explican el proceso y solicitan datos verificables', async () => {

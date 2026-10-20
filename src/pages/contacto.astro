@@ -16,7 +16,7 @@ import '../styles/global.css';
     const storageGet = (key) => { try { return window.sessionStorage.getItem(key) || ''; } catch { return ''; } };
     const storageSet = (key, value) => { try { window.sessionStorage.setItem(key, value); } catch { /* storage can be unavailable */ } };
     const valueFor = (key) => params.get(key) || storageGet(`tm_${key}`);
-    const landingPage = storageGet('tm_landing_page') || window.location.href;
+    const landingPage = storageGet('tm_landing_page') || params.get('origen') || window.location.href;
     storageSet('tm_landing_page', landingPage);
     const field = (name) => form?.querySelector(`[name="${name}"]`);
     if (form) {
