@@ -12,7 +12,7 @@ applications:
 condition: nuevo
 availability: Solo demostración; no representa inventario disponible.
 quoteInstructions: Sustituye estos datos por información confirmada antes de publicar un producto real.
-published: true
+published: false
 image: /assets/turbo-catalogo.svg
 ---
 

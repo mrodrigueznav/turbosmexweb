@@ -6,7 +6,6 @@ const pages = [
   'index.html',
   'catalogo/index.html',
   'catalogo/garrett-gt1548/index.html',
-  'catalogo/turbo-ejemplo/index.html',
   'contacto/index.html',
   'ubicaciones/index.html',
   'servicios/venta/index.html',
@@ -14,7 +13,7 @@ const pages = [
   'servicios/refacciones/index.html',
 ];
 
-const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/garrett-gt1548/', '/catalogo/turbo-ejemplo/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
+const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
 const routeFromHref = (href) => {
   const path = href.split('#')[0];
   return path.endsWith('/') ? path : `${path}/`;
@@ -116,13 +115,12 @@ test('el primer producto publicado tiene información técnica y una ruta de cot
   assert.equal((product.match(/rel="canonical"/g) || []).length, 1);
 });
 
-test('el catálogo identifica claramente el producto de ejemplo', async () => {
+test('los productos no publicados no aparecen en páginas públicas', async () => {
   const catalog = await readFile('dist/catalogo/index.html', 'utf8');
-  const example = await readFile('dist/catalogo/turbo-ejemplo/index.html', 'utf8');
 
-  assert.match(catalog, /href="\/catalogo\/turbo-ejemplo\/"/);
-  assert.match(example, /Producto de ejemplo/);
-  assert.match(example, /no representa una pieza, compatibilidad, precio o disponibilidad real/i);
+  assert.doesNotMatch(catalog, /turbo-ejemplo/);
+  const sitemap = await readFile('dist/sitemap-0.xml', 'utf8');
+  assert.doesNotMatch(sitemap, /turbo-ejemplo/);
 });
 
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {

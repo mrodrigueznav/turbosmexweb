@@ -17,6 +17,22 @@ const productos = defineCollection({
     quoteInstructions: z.string().min(1),
     published: z.boolean().default(false),
     image: z.string().optional(),
+  }).superRefine((product, context) => {
+    if (product.published && product.example) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['published'],
+        message: 'Un producto de ejemplo no puede publicarse.',
+      });
+    }
+
+    if (product.published && product.applications.some((application) => /no confirmad/i.test(application))) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['applications'],
+        message: 'Las aplicaciones publicadas deben estar confirmadas.',
+      });
+    }
   }),
 });
 

@@ -17,6 +17,6 @@
 
 ### Implementación
 
-La colección validada de productos Markdown y el primer producto publicado están implementados. La página de producto comunica consulta y cotización, conserva únicamente datos técnicos confirmados, genera metadatos y datos estructurados coherentes, y aparece en el sitemap. La suite de publicación verifica las rutas, enlaces, metadatos, accesibilidad básica y exclusión de productos no publicados.
+La colección validada de productos Markdown y el primer producto publicado están implementados. La página de producto comunica consulta y cotización, conserva únicamente datos técnicos confirmados, genera metadatos y datos estructurados coherentes, y aparece en el sitemap. Los productos de ejemplo o con aplicaciones explícitamente no confirmadas no se pueden publicar. La suite de publicación verifica las rutas, enlaces, metadatos, accesibilidad básica y exclusión de productos no publicados.
 
-La implementación se verificó con `npm test`: 14 pruebas pasan; `npm run build` genera 9 páginas estáticas sin errores.
+La implementación se verificó con `npm test`: 14 pruebas pasan; `npm run build` genera 8 páginas estáticas sin errores.
