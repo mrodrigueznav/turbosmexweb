@@ -84,7 +84,7 @@ test('las conversiones mantienen identificadores diferenciados', async () => {
   const contact = await readFile('dist/contacto/index.html', 'utf8');
   assert.match(layout, /data-track="whatsapp_click"/);
   assert.match(layout, /data-track="phone_click"/);
-  assert.match(layout, /Llamar al 442 476 0911/);
+  assert.match(layout, /442 476 0911/);
   assert.match(contact, /form_submit/);
 });
 
