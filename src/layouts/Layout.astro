@@ -179,6 +179,7 @@ const structuredData = {
       const floatingWhatsapp = document.querySelector('.whatsapp-float');
       const whatsappActions = [...document.querySelectorAll('[data-track="whatsapp_click"]')].filter((element) => element !== floatingWhatsapp);
       if (floatingWhatsapp && whatsappActions.length && 'IntersectionObserver' in window) {
+        floatingWhatsapp.classList.add('is-hidden');
         const observer = new IntersectionObserver((entries) => {
           const actionVisible = entries.some((entry) => entry.isIntersecting);
           floatingWhatsapp.classList.toggle('is-hidden', actionVisible);
