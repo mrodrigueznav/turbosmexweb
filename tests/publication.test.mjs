@@ -17,7 +17,7 @@ const pages = [
 
 const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/marca/garrett/', '/catalogo/aplicaciones/ford-transit-2-4-tdci/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
 const routeFromHref = (href) => {
-  const path = href.split('#')[0];
+  const path = href.split(/[?#]/)[0];
   return path.endsWith('/') ? path : `${path}/`;
 };
 
@@ -111,7 +111,9 @@ test('el primer producto publicado tiene información técnica y una ruta de cot
   assert.match(product, /724930-5006S/);
   assert.match(product, /Ford Transit 2\.4 TDCi/);
   assert.match(product, /Sujeto a confirmación/);
-  assert.match(product, /href="\/contacto\/"/);
+  assert.match(product, /href="https:\/\/wa\.me\/524424760911\?text=/);
+  assert.match(product, /data-track="whatsapp_click" data-product="Garrett GT1548" data-part-number="724930-5006S"/);
+  assert.match(product, /href="\/contacto\/\?producto=Garrett%20GT1548&amp;numero_parte=724930-5006S/);
   assert.match(product, /Product/);
   assert.match(product, /BreadcrumbList/);
   assert.match(product, /href="\/servicios\/venta\/"/);
@@ -137,6 +139,17 @@ test('los productos no publicados no aparecen en páginas públicas', async () =
   assert.doesNotMatch(catalog, /turbo-ejemplo/);
   const sitemap = await readFile('dist/sitemap-0.xml', 'utf8');
   assert.doesNotMatch(sitemap, /turbo-ejemplo/);
+});
+
+test('la cotización conserva contexto de producto y atribución', async () => {
+  const product = await readFile('dist/catalogo/garrett-gt1548/index.html', 'utf8');
+  const contact = await readFile('dist/contacto/index.html', 'utf8');
+
+  assert.match(product, /Hola%20Turbos%20M%C3%A9xico%2C%20quiero%20cotizar%20Garrett%20GT1548/);
+  for (const field of ['producto', 'numero_parte', 'landing_page', 'request_url', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid']) {
+    assert.match(contact, new RegExp(`name="${field}"`));
+  }
+  assert.match(contact, /form_submit/);
 });
 
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {

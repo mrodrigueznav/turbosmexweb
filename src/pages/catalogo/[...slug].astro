@@ -13,6 +13,8 @@ const { data } = product;
 const { Content } = await render(product);
 const canonicalPath = `/catalogo/${data.slug}/`;
 const imageUrl = data.image ?? '/assets/turbo-catalogo.svg';
+const quoteUrl = `/contacto/?producto=${encodeURIComponent(data.name)}&numero_parte=${encodeURIComponent(data.partNumbers[0])}&origen=${encodeURIComponent(canonicalPath)}`;
+const whatsappUrl = `https://wa.me/524424760911?text=${encodeURIComponent(`Hola Turbos México, quiero cotizar ${data.name} (${data.partNumbers[0]}).`)}`;
 const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
@@ -66,7 +68,8 @@ const breadcrumbSchema = {
       <h2>Confirma antes de comprar</h2>
       <p>{data.quoteInstructions}</p>
       <p>La publicación no implica precio, compatibilidad ni inventario confirmados.</p>
-      <a class="button button-primary" href="/contacto/">Solicitar cotización</a>
+      <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-product={data.name} data-part-number={data.partNumbers[0]}>Cotizar por WhatsApp</a>
+      <a class="button button-primary" href={quoteUrl}>Solicitar cotización</a>
       <a class="button button-light" href="/servicios/venta/">Ver servicio de venta</a>
       <a class="button button-light" href="/servicios/refacciones/">Consultar refacciones</a>
       <a class="button button-dark" href="/servicios/reparacion/">¿Necesitas reparación?</a>

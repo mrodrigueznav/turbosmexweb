@@ -30,6 +30,15 @@ $name = trim($_POST['nombre']);
 $email = trim($_POST['correo']);
 $phone = trim($_POST['telefono']);
 $message = trim($_POST['mensaje']);
+$optionalFields = ['producto', 'numero_parte', 'landing_page', 'request_url', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
+$context = [];
+foreach ($optionalFields as $field) {
+    $value = $_POST[$field] ?? '';
+    if (!is_string($value) || strlen($value) > 1000) {
+        respond(422, 'Completa todos los campos correctamente.');
+    }
+    $context[$field] = trim($value);
+}
 
 if (
     $name === '' || $phone === '' || $message === '' ||
@@ -55,17 +64,41 @@ try {
     $database->exec(
         'CREATE TABLE IF NOT EXISTS leads (' .
         'id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, correo TEXT NOT NULL, ' .
-        'telefono TEXT NOT NULL, mensaje TEXT NOT NULL, creado_en TEXT NOT NULL, ip_hash TEXT NOT NULL)'
+        'telefono TEXT NOT NULL, mensaje TEXT NOT NULL, producto TEXT NOT NULL DEFAULT \'\', numero_parte TEXT NOT NULL DEFAULT \'\', ' .
+        'landing_page TEXT NOT NULL DEFAULT \'\', request_url TEXT NOT NULL DEFAULT \'\', utm_source TEXT NOT NULL DEFAULT \'\', ' .
+        'utm_medium TEXT NOT NULL DEFAULT \'\', utm_campaign TEXT NOT NULL DEFAULT \'\', utm_term TEXT NOT NULL DEFAULT \'\', ' .
+        'utm_content TEXT NOT NULL DEFAULT \'\', gclid TEXT NOT NULL DEFAULT \'\', creado_en TEXT NOT NULL, ip_hash TEXT NOT NULL)'
     );
+    foreach (['producto', 'numero_parte', 'landing_page', 'request_url', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'] as $column) {
+        try {
+            $database->exec("ALTER TABLE leads ADD COLUMN {$column} TEXT NOT NULL DEFAULT ''");
+        } catch (PDOException $migrationError) {
+            if (!str_contains(strtolower($migrationError->getMessage()), 'duplicate column')) {
+                throw $migrationError;
+            }
+        }
+    }
     $statement = $database->prepare(
-        'INSERT INTO leads (nombre, correo, telefono, mensaje, creado_en, ip_hash) ' .
-        'VALUES (:nombre, :correo, :telefono, :mensaje, :creado_en, :ip_hash)'
+        'INSERT INTO leads (nombre, correo, telefono, mensaje, producto, numero_parte, landing_page, request_url, ' .
+        'utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, creado_en, ip_hash) ' .
+        'VALUES (:nombre, :correo, :telefono, :mensaje, :producto, :numero_parte, :landing_page, :request_url, ' .
+        ':utm_source, :utm_medium, :utm_campaign, :utm_term, :utm_content, :gclid, :creado_en, :ip_hash)'
     );
     $statement->execute([
         ':nombre' => $name,
         ':correo' => $email,
         ':telefono' => $phone,
         ':mensaje' => $message,
+        ':producto' => $context['producto'],
+        ':numero_parte' => $context['numero_parte'],
+        ':landing_page' => $context['landing_page'],
+        ':request_url' => $context['request_url'],
+        ':utm_source' => $context['utm_source'],
+        ':utm_medium' => $context['utm_medium'],
+        ':utm_campaign' => $context['utm_campaign'],
+        ':utm_term' => $context['utm_term'],
+        ':utm_content' => $context['utm_content'],
+        ':gclid' => $context['gclid'],
         ':creado_en' => gmdate('c'),
         ':ip_hash' => hash('sha256', (string)($_SERVER['REMOTE_ADDR'] ?? '')),
     ]);
@@ -77,7 +110,7 @@ try {
 
 $recipient = 'ventas@turbosmexico.com.mx';
 $subject = 'Nueva solicitud desde turbosmexico.com.mx';
-$body = "Nombre: {$name}\nCorreo: {$email}\nTeléfono: {$phone}\n\nNecesidad:\n{$message}";
+$body = "Nombre: {$name}\nCorreo: {$email}\nTeléfono: {$phone}\nProducto: {$context['producto']}\nNúmero de parte: {$context['numero_parte']}\nPágina de entrada: {$context['landing_page']}\nURL de solicitud: {$context['request_url']}\nCampaña: {$context['utm_source']} / {$context['utm_medium']} / {$context['utm_campaign']}\n\nNecesidad:\n{$message}";
 $headers = "From: formulario@turbosmexico.com.mx\r\nReply-To: {$email}\r\nContent-Type: text/plain; charset=UTF-8\r\n";
 
 // The lead is already protected in SQLite; email is a notification, not the source of truth.
