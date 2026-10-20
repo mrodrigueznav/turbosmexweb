@@ -19,6 +19,6 @@
 
 ### Implementación
 
-Las páginas de producto generan WhatsApp contextualizado y una URL de contacto con producto, número de parte y origen. El formulario conserva página de entrada, URL de solicitud y parámetros UTM/GCLID mediante campos ocultos; la API valida esos valores, migra el esquema SQLite existente y los almacena fuera del directorio público junto con el lead.
+Las páginas de producto generan WhatsApp contextualizado y una URL de contacto con producto, número de parte y origen. El formulario conserva por separado la primera página de entrada de la sesión, la URL de solicitud, el producto y los parámetros UTM/GCLID mediante campos ocultos; la API valida esos valores, migra el esquema SQLite existente y los almacena fuera del directorio público junto con el lead.
 
 El seguimiento conserva `whatsapp_click`, añade producto, número de parte, dispositivo y campaña cuando están disponibles, y mantiene la descripción como intención de contacto, no como conversación o venta. La suite de publicación verifica el contrato público; `npm test` pasa con 16 pruebas. La validación de sintaxis PHP y las pruebas runtime de solicitudes con y sin campañas quedan pendientes porque PHP no está instalado en el entorno local.
