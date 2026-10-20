@@ -10,26 +10,25 @@ const applications = [...new Set(products.flatMap((product) => product.data.appl
 const toSlug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 ---
 
-<Layout title="Catálogo de turbos | Turbos México" description="Consulta turbocompresores publicados por Turbos México y solicita una cotización con los datos de tu aplicación.">
+<Layout title="Catálogo de turbos | Turbos México" description="Consulta turbocompresores de Turbos México y solicita una cotización con los datos de tu aplicación.">
   <section class="page-hero">
     <span class="eyebrow">Consulta y cotización</span>
     <h1>Catálogo de turbos</h1>
-    <p>Conoce los modelos publicados y solicita orientación técnica. La compatibilidad, disponibilidad y precio se confirman antes de cotizar.</p>
+    <p>Explora nuestros modelos y solicita orientación técnica. La compatibilidad, disponibilidad y precio se revisan para tu vehículo antes de cotizar.</p>
   </section>
   <section class="section">
     <div class="section-heading">
-      <h2>Productos publicados</h2>
-      <p>Empezamos con productos seleccionados y verificables para evitar promesas de inventario o compatibilidad no confirmadas.</p>
+      <h2>Modelos disponibles para consulta</h2>
+      <p>Seleccionamos referencias con información técnica para ayudarte a identificar la pieza correcta.</p>
     </div>
     <div class="grid product-grid">
       {products.map((product) => (
         <article class="card product-card">
           <span class="eyebrow">{product.data.brand}</span>
-          {product.data.example && <span class="example-label">Ejemplo</span>}
           <h3>{product.data.name}</h3>
           <p>{product.data.description}</p>
           <p><strong>Número de parte:</strong> {product.data.partNumbers.join(', ')}</p>
-          <a href={`/catalogo/${product.data.slug}/`}>Ver información del turbo →</a>
+          <a href={`/catalogo/${product.data.slug}/`}>Ver ficha del turbo →</a>
         </article>
       ))}
     </div>
@@ -37,19 +36,19 @@ const toSlug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replac
   <section class="section">
     <div class="section-heading">
       <h2>Explora por marca o aplicación</h2>
-      <p>Estas categorías muestran únicamente grupos con productos publicados y contenido editorial propio.</p>
+      <p>Encuentra modelos relacionados con tu marca o aplicación.</p>
     </div>
     <div class="grid">
       {brands.map((product) => (
         <a class="card" href={`/catalogo/marca/${toSlug(product.data.brand)}/`}>
           <h3>Turbos {product.data.brand}</h3>
-          <p>Modelos publicados de esta marca.</p>
+          <p>Consulta modelos de esta marca.</p>
         </a>
       ))}
       {applications.map((application) => (
         <a class="card" href={`/catalogo/aplicaciones/${toSlug(application)}/`}>
           <h3>{application}</h3>
-          <p>Productos publicados para esta aplicación.</p>
+          <p>Consulta opciones para esta aplicación.</p>
         </a>
       ))}
     </div>

@@ -126,10 +126,10 @@ test('las categorías publicadas tienen contenido propio y enlazan al producto',
   const brand = await readFile('dist/catalogo/marca/garrett/index.html', 'utf8');
   const application = await readFile('dist/catalogo/aplicaciones/ford-transit-2-4-tdci/index.html', 'utf8');
 
-  assert.match(brand, /Categoría por marca/);
+  assert.match(brand, /Modelos por marca/);
   assert.match(brand, /Turbos Garrett/);
   assert.match(brand, /href="\/catalogo\/garrett-gt1548\/"/);
-  assert.match(application, /Categoría por aplicación/);
+  assert.match(application, /Modelos por aplicación/);
   assert.match(application, /Turbos para Ford Transit 2\.4 TDCi/);
   assert.match(application, /href="\/catalogo\/garrett-gt1548\/"/);
 });
@@ -156,8 +156,8 @@ test('la cotización conserva contexto de producto y atribución', async () => {
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {
   const html = await readFile('dist/ubicaciones/index.html', 'utf8');
   assert.match(html, /Cobertura por envío/);
-  assert.match(html, /no publicamos otras sucursales/i);
-  assert.match(html, /dirección, teléfono y horario/);
+  assert.match(html, /Escríbenos para conocer la opción/i);
+  assert.match(html, /Si el mapa no carga, usa la dirección/);
   assert.match(html, /href="\/contacto\/"/);
 });
 

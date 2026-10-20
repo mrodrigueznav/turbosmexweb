@@ -18,12 +18,12 @@ export async function getStaticPaths() {
 const { name, products: categoryProducts } = Astro.props;
 ---
 
-<Layout title={`Turbos ${name} | Catálogo | Turbos México`} description={`Consulta los turbos ${name} publicados por Turbos México y solicita una cotización.`}>
+<Layout title={`Turbos ${name} | Catálogo | Turbos México`} description={`Consulta los turbos ${name} disponibles para consulta y solicita una cotización.`}>
   <section class="page-hero">
     <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> / <a href="/catalogo/">Catálogo</a> / <span>{name}</span></nav>
-    <span class="eyebrow">Categoría por marca</span>
+    <span class="eyebrow">Modelos por marca</span>
     <h1>Turbos {name}</h1>
-    <p>Modelos publicados de {name}. La compatibilidad, disponibilidad y precio se confirman antes de cotizar.</p>
+    <p>Consulta modelos {name} y solicita orientación para tu vehículo. La compatibilidad, disponibilidad y precio se revisan antes de cotizar.</p>
   </section>
   <section class="section">
     <h2>Modelos de {name}</h2>
@@ -33,7 +33,7 @@ const { name, products: categoryProducts } = Astro.props;
           <span class="eyebrow">{product.data.productType}</span>
           <h3>{product.data.name}</h3>
           <p>{product.data.description}</p>
-          <a href={`/catalogo/${product.data.slug}/`}>Ver información del turbo →</a>
+          <a href={`/catalogo/${product.data.slug}/`}>Ver ficha del turbo →</a>
         </article>
       ))}
     </div>

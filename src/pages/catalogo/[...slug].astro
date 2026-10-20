@@ -42,13 +42,12 @@ const breadcrumbSchema = {
     <div class="product-hero-content">
     <nav class="breadcrumbs" aria-label="Migas de pan"><a href="/">Inicio</a> / <a href="/catalogo/">Catálogo</a> / <span>{data.name}</span></nav>
     <span class="eyebrow">{data.brand} · {data.productType}</span>
-    {data.example && <p class="example-label">Producto de ejemplo</p>}
     <h1>{data.name}</h1>
     <p>{data.description}</p>
     </div>
     <figure class="product-image">
       <img src={imageUrl} alt={`Imagen de ${data.name}`} />
-      <figcaption>Imagen ilustrativa. Confirma la pieza con su placa y número de parte.</figcaption>
+       <figcaption>Imagen de referencia. Compárala con la placa y el número de parte de tu turbo.</figcaption>
     </figure>
   </section>
   <section class="section product-detail">
@@ -58,16 +57,16 @@ const breadcrumbSchema = {
       <div class="product-description"><Content /></div>
       <dl class="product-facts">
         <div><dt>Número de parte</dt><dd>{data.partNumbers.join(', ')}</dd></div>
-        <div><dt>Aplicación confirmada</dt><dd>{data.applications.join(', ')}</dd></div>
-        <div><dt>Condición comunicable</dt><dd>{data.condition}</dd></div>
+        <div><dt>Aplicación</dt><dd>{data.applications.join(', ')}</dd></div>
+        <div><dt>Condición</dt><dd>{data.condition}</dd></div>
         <div><dt>Disponibilidad</dt><dd>{data.availability}</dd></div>
       </dl>
     </div>
     <div class="product-quote">
       <span class="eyebrow">Siguiente paso</span>
-      <h2>Confirma antes de comprar</h2>
+      <h2>Antes de cotizar</h2>
       <p>{data.quoteInstructions}</p>
-      <p>La publicación no implica precio, compatibilidad ni inventario confirmados.</p>
+      <p>El precio, la compatibilidad y la disponibilidad se confirman para cada solicitud.</p>
       <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-product={data.name} data-part-number={data.partNumbers[0]}>Cotizar por WhatsApp</a>
       <a class="button button-primary" href={quoteUrl}>Solicitar cotización</a>
       <a class="button button-light" href="/servicios/venta/">Ver servicio de venta</a>
