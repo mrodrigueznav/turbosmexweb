@@ -10,12 +10,18 @@ const pages = [
   'catalogo/garrett-gt1548/index.html',
   'contacto/index.html',
   'ubicaciones/index.html',
+  'quienes-somos/index.html',
+  'aplicaciones/index.html',
+  'blog/index.html',
+  'blog/identificacion-placa-turbo/index.html',
+  'blog/turbo-lag/index.html',
+  'blog/reparacion-turbo/index.html',
   'servicios/venta/index.html',
   'servicios/reparacion/index.html',
   'servicios/refacciones/index.html',
 ];
 
-const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/marca/garrett/', '/catalogo/aplicaciones/ford-transit-2-4-tdci/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
+const expectedRoutes = new Set(['/', '/catalogo/', '/catalogo/marca/garrett/', '/catalogo/aplicaciones/ford-transit-2-4-tdci/', '/catalogo/garrett-gt1548/', '/contacto/', '/ubicaciones/', '/quienes-somos/', '/aplicaciones/', '/blog/', '/blog/identificacion-placa-turbo/', '/blog/turbo-lag/', '/blog/reparacion-turbo/', '/servicios/venta/', '/servicios/reparacion/', '/servicios/refacciones/']);
 const routeFromHref = (href) => {
   const path = href.split(/[?#]/)[0];
   return path.endsWith('/') ? path : `${path}/`;
@@ -162,8 +168,8 @@ test('la cotización conserva contexto de producto y atribución', async () => {
 
 test('ubicaciones distingue cobertura por envío y no publica sucursales sin datos confirmados', async () => {
   const html = await readFile('dist/ubicaciones/index.html', 'utf8');
-  assert.match(html, /Cobertura por envío/);
-  assert.match(html, /Escríbenos para conocer la opción/i);
+  assert.match(html, /Servicio de paquetería a toda la República Mexicana/);
+  assert.match(html, /Escríbenos para revisar tu solicitud/i);
   assert.match(html, /Si el mapa no carga, usa la dirección/);
   assert.match(html, /href="\/contacto\/"/);
 });
@@ -226,20 +232,14 @@ test('ubicaciones publica sucursales físicas y redes sociales oficiales', async
     'Querétaro 11',
     'San Isidro Miranda',
     'bajio@turbosmexico.com.mx',
-    'Sucursal Tlalnepantla',
-    'Av. Santa Monica 40 Local C',
-    'El Mirador',
-    'ventas@turbosmexico.com.mx',
   ]) assert.match(html, new RegExp(phrase));
 
   assert.match(html, /<iframe[^>]+title="Mapa de Sucursal Querétaro"/);
-  assert.match(html, /<iframe[^>]+title="Mapa de Sucursal Tlalnepantla"/);
   assert.match(html, /data-track="branch_directions" data-branch="queretaro"/);
-  assert.match(html, /data-track="branch_directions" data-branch="tlalnepantla"/);
   assert.match(html, /maps\/search\/\?api=1&amp;query=Quer%C3%A9taro%2011%2C%20Col.%20San%20Isidro%20Miranda/);
-  assert.match(html, /maps\/search\/\?api=1&amp;query=Av.%20Santa%20Monica%2040%20Local%20C/);
+  assert.doesNotMatch(html, /Tlalnepantla|Santa Monica|El Mirador/);
   assert.match(html, /data-track="branch_phone_click" data-branch="queretaro"/);
-  assert.match(html, /data-track="branch_phone_click" data-branch="tlalnepantla"/);
+  assert.match(html, /Sucursal física en Querétaro/);
   assert.match(html, /branch_location: element\.dataset\.branch/);
   assert.match(html, /data-track="social_facebook"/);
   assert.match(html, /data-track="social_instagram"/);
@@ -251,6 +251,6 @@ test('ubicaciones publica sucursales físicas y redes sociales oficiales', async
   for (const social of ['social_facebook', 'social_instagram', 'social_youtube']) {
     assert.match(html, new RegExp(`data-track="${social}"[^>]*aria-label="[^"]+"[^>]*><svg`));
   }
-  assert.match(html, /Cobertura por envío/);
-  assert.doesNotMatch(html, /LocalBusiness/);
+  assert.match(html, /Servicio de paquetería a toda la República Mexicana/);
+  assert.match(html, /LocalBusiness/);
 });

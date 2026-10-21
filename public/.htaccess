@@ -2,6 +2,28 @@
 # the old domain before changing DNS. Destinations are final canonical routes.
 Redirect 301 /contactanos/ /contacto/
 Redirect 301 /sucursal-queretaro/ /ubicaciones/#sucursal-queretaro
-Redirect 301 /sucursal-tlalnepantla/ /ubicaciones/#sucursal-tlalnepantla
-Redirect 301 /tipos-de-turbos/ /servicios/venta/
-Redirect 301 /turbos-garrett/ /servicios/venta/
+Redirect 410 /sucursal-tlalnepantla/
+Redirect 410 /sucursal-monterrey/
+Redirect 410 /sucursal-cancun/
+Redirect 410 /sucursal-guanajuato/
+Redirect 301 /tipos-de-turbos/ /aplicaciones/
+Redirect 301 /turbos-garrett/ /catalogo/marca/garrett/
+Redirect 301 /portfolio/venta-de-turbos-nuevos/ /servicios/venta/
+Redirect 301 /portfolio/reparacion-de-turbos/ /servicios/reparacion/
+Redirect 301 /portfolio/cartuchos-para-turbos/ /servicios/refacciones/
+Redirect 301 /portfolio/refacciones-para-turbos/ /servicios/refacciones/
+Redirect 301 /portfolio/turbos-disel-y-gasolina/ /servicios/venta/
+Redirect 301 /blog-turbos-mexico/ /blog/
+Redirect 301 /identificacion-de-la-placa-de-un-turbo-2/ /blog/identificacion-placa-turbo/
+Redirect 301 /turbo-lag-que-es-y-como-evitarlo-2/ /blog/turbo-lag/
+Redirect 301 /como-reparar-un-turbo-paso-a-paso/ /blog/reparacion-turbo/
+Redirect 410 /conversion-a-turbo-todo-lo-que-tienes-que-saber/
+Redirect 410 /estructura-de-un-turbo/
+Redirect 410 /portfolio/
+Redirect 410 /datoturbo/
+Redirect 410 /turbos/
+Redirect 410 /author/
+Redirect 410 /tag/
+Redirect 410 /2020/
+Redirect 410 /2021/
+Redirect 410 /imunify-bot-check/

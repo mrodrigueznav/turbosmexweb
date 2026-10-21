@@ -21,12 +21,34 @@ const phone = '+524424760911';
 const whatsapp = `https://wa.me/524424760911?text=${encodeURIComponent('Hola Turbos México, necesito información sobre un turbo.')}`;
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': ['Organization', 'LocalBusiness'],
   name: 'Turbos México',
   url: canonicalUrl.origin,
   logo: new URL('/assets/logo-turbos-mexico.png', canonicalUrl).toString(),
   telephone: '+52 442 476 0911',
   email: 'ventas@turbosmexico.com.mx',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Querétaro 11, Col. San Isidro Miranda',
+    addressLocality: 'Querétaro',
+    addressRegion: 'Querétaro',
+    postalCode: '76240',
+    addressCountry: 'MX',
+  },
+  areaServed: { '@type': 'Country', name: 'México' },
+  sameAs: [
+    'https://www.facebook.com/turbosmexico/',
+    'https://www.instagram.com/turbos.mexico/',
+    'https://www.youtube.com/channel/UCtFUgAvBEVE8-OyeI-24qng/videos',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+52 442 476 0911',
+    email: 'ventas@turbosmexico.com.mx',
+    contactType: 'customer service',
+    areaServed: 'MX',
+    availableLanguage: 'es-MX',
+  },
 };
 ---
 <!doctype html>
@@ -83,7 +105,7 @@ const structuredData = {
         <a href="/servicios/reparacion/">Reparación</a>
         <a href="/servicios/refacciones/">Refacciones</a>
         <a href="/catalogo/">Catálogo</a>
-        <a href="/#aplicaciones">Aplicaciones</a>
+        <a href="/aplicaciones/">Aplicaciones</a>
         <a href="/ubicaciones/">Ubicaciones</a>
         <a href="/contacto/">Contacto</a>
       </nav>
@@ -106,6 +128,8 @@ const structuredData = {
         <a href="/servicios/reparacion/">Reparación</a>
         <a href="/servicios/refacciones/">Refacciones</a>
         <a href="/catalogo/">Catálogo de turbos</a>
+        <a href="/quienes-somos/">Quiénes somos</a>
+        <a href="/blog/">Información</a>
       </div>
       <div>
         <strong>Redes sociales</strong>

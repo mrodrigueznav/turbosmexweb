@@ -14,15 +14,120 @@
 
 [[redirects]]
   from = "/sucursal-tlalnepantla/"
-  to = "/ubicaciones/#sucursal-tlalnepantla"
-  status = 301
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/sucursal-monterrey/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/sucursal-cancun/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/sucursal-guanajuato/"
+  to = "/404.html"
+  status = 410
 
 [[redirects]]
   from = "/tipos-de-turbos/"
-  to = "/servicios/venta/"
+  to = "/aplicaciones/"
   status = 301
 
 [[redirects]]
   from = "/turbos-garrett/"
+  to = "/catalogo/marca/garrett/"
+  status = 301
+
+[[redirects]]
+  from = "/portfolio/venta-de-turbos-nuevos/"
   to = "/servicios/venta/"
   status = 301
+
+[[redirects]]
+  from = "/portfolio/reparacion-de-turbos/"
+  to = "/servicios/reparacion/"
+  status = 301
+
+[[redirects]]
+  from = "/portfolio/cartuchos-para-turbos/"
+  to = "/servicios/refacciones/"
+  status = 301
+
+[[redirects]]
+  from = "/portfolio/refacciones-para-turbos/"
+  to = "/servicios/refacciones/"
+  status = 301
+
+[[redirects]]
+  from = "/portfolio/turbos-disel-y-gasolina/"
+  to = "/servicios/venta/"
+  status = 301
+
+[[redirects]]
+  from = "/blog-turbos-mexico/"
+  to = "/blog/"
+  status = 301
+
+[[redirects]]
+  from = "/identificacion-de-la-placa-de-un-turbo-2/"
+  to = "/blog/identificacion-placa-turbo/"
+  status = 301
+
+[[redirects]]
+  from = "/turbo-lag-que-es-y-como-evitarlo-2/"
+  to = "/blog/turbo-lag/"
+  status = 301
+
+[[redirects]]
+  from = "/como-reparar-un-turbo-paso-a-paso/"
+  to = "/blog/reparacion-turbo/"
+  status = 301
+
+[[redirects]]
+  from = "/conversion-a-turbo-todo-lo-que-tienes-que-saber/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/estructura-de-un-turbo/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/portfolio/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/datoturbo/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/turbos/"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/author/*"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/tag/*"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/2020/*"
+  to = "/404.html"
+  status = 410
+
+[[redirects]]
+  from = "/2021/*"
+  to = "/404.html"
+  status = 410
